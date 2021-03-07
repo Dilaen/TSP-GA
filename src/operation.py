@@ -1,7 +1,10 @@
 from src.entity import *
 
 from random import sample
+from typing import Tuple
 
+
+# recombination method
 
 def order_crossover(father: Individual, mother: Individual) -> List[Individual]:
     fa, mo = father.route, mother.route
@@ -25,34 +28,50 @@ def order_crossover(father: Individual, mother: Individual) -> List[Individual]:
     chd1, chd2 = crossover(fa, mo), crossover(mo, fa)
     return [Individual(problem, chd1), Individual(problem, chd2)]
     
+def patially_mapped_crossover(father: Individual, mother: Individual) -> List[Individual]:
+    return NotImplemented
 
-def patially_mapped_crossover():
-    pass
+def cycle_crossover(father: Individual, mother: Individual) -> List[Individual]:
+    return NotImplemented
 
-def cycle_crossover():
-    pass
+def edge_recombination(father: Individual, mother: Individual) -> List[Individual]:
+    return NotImplemented
 
-def edge_recombination():
-    pass
 
+# mutation method
+
+def __select_points(ind: List[int]) -> Tuple[int]:
+    n = len(ind)
+    points = sample([i for i in range(n)], 2)
+    return min(points), max(points)
 
 def insert(individual: Individual) -> Individual:
-    return NotImplemented
+    ind = individual.route
+    a, b = __select_points(ind)
+    temp = ind[b]
+    for i in range(b - 1, a, -1):
+        ind[i + 1] = ind[i]
+    ind[a] = temp
+    return Individual(individual.problem, ind)
 
 def swap(individual: Individual) -> Individual:
     ind = individual.route
-    n = len(ind)
-    points = sample([i for i in range(n)], 2)
-    a, b = min(points), max(points)
+    a, b = __select_points(ind)
     ind[a], ind[b] = ind[b], ind[a]
-    return ind
+    return Individual(individual.problem, ind)
 
 def inversion(individual: Individual) -> Individual:
-    return NotImplemented
+    ind = individual.route
+    a, b = __select_points(ind)
+    for i in range((b - a + 1) // 2):
+        ind[a + i], ind[b - i] = ind[b - i], ind[a + i]
+    return Individual(individual.problem, ind)
 
 def scramble(individual: Individual) -> Individual:
     return NotImplemented
 
+
+# survivor selection method
 
 def fitness_proportional(population: Population) -> Population:
     return NotImplemented
