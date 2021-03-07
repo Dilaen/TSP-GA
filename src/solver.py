@@ -67,7 +67,7 @@ class TSPSolver:
         best_individual = self.population.individuals[0]
         waiting_cnt = 0
         MUTATION_PROBABILITY = uniform(1 / self.population.size, 1 / self.problem.city_num)
-        MAX_GENERATION = 1000000
+        MAX_GENERATION = 10000
         generation = 0
         while waiting_cnt < waiting_generation:
             if generation == MAX_GENERATION:
