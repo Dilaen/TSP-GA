@@ -6,5 +6,5 @@
 
 ## 用法
 
-构造一个`TSPSolver`对象，调用该对象的`solve()`即可。
+构造一个`TSPSolver`对象，调用该对象的`solve()`方法即可。
 demo.py展示了一个使用样例。
